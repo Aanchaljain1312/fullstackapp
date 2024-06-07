@@ -16,10 +16,11 @@ function Signup() {
 
   const onImageSelect = (event) =>{
     setImg(event.target.files[0]);
+    
     //setFile(event.target.files[0])
     //event object has a property called target
     // console.log(event.target.files[0])
-    console.log(event);
+    //console.log(event);
   }
 
   const navigate = useNavigate()

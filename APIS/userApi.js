@@ -7,7 +7,6 @@ const bcryptjs = require('bcryptjs')
 //import json webtoken
 const jwt = require('jsonwebtoken')
 const verifyToken = require('./middlewares/verifyTokens')
-
 require("dotenv").config();
 
 var cloudinary = require("cloudinary").v2;
@@ -16,9 +15,9 @@ const multer= require("multer")
 
 //configure cloudinary
 cloudinary.config({
-    cloud_name :"doyucuqhn",
-    api_key:"484318587913156",
-    api_secret:"oYdI-tVXNBlVYrnCExJLOQe9ws8",
+    cloud_name :process.env.CLOUD_NAME,
+    api_key:process.env.API_KEY,
+    api_secret:process.env.API_SECRET,
     secure:true
 
 })
