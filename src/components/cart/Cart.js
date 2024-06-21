@@ -1,9 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Card, Button, Col, Row } from 'react-bootstrap';
-import { useContext } from 'react';
-import { LoginContext } from '../../contexts/LoginContext';
 
 //get token from local storage
 // let token = localStorage.getItem("token");
@@ -37,9 +35,7 @@ import { LoginContext } from '../../contexts/LoginContext';
 
 function Cart() {
   const [products, setCartProducts] = useState([]);
-  // let { userObj } = useSelector(state => state.user)
-  let {userObj} = useContext(LoginContext);
-
+  let { userObj } = useSelector(state => state.user)
   let username = userObj.username;
   console.log(username)
   const getCart = async () => {

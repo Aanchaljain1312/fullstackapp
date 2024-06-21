@@ -7,16 +7,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter } from 'react-router-dom';
 import { store } from './store'
 import { Provider } from 'react-redux'
-import LoginStore from './contexts/LoginStore';
+// import LoginStore from './contexts/LoginStore';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      {/* <Provider store={store}> */}
-        <LoginStore>
+      <Provider store={store}>
+        {/* <LoginStore> */}
         <App />
-        </LoginStore>
-      {/* </Provider> */}
+        {/* </LoginStore> */}
+      </Provider>
     </BrowserRouter>
   </React.StrictMode>
 );

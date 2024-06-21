@@ -1,14 +1,10 @@
 import React from 'react'
 import {Button ,Card,Col, Container,Row} from 'react-bootstrap';
-// import { useSelector } from 'react-redux';
-import { useContext } from 'react';
-import { LoginContext } from '../../contexts/LoginContext';
+import { useSelector } from 'react-redux';
 
 function Userprofile() {
   //get redux obj from redux
-  // let {userObj} = useSelector(state=>state.user)
-
-  let {userObj} = useContext(LoginContext)
+  let {userObj} = useSelector(state=>state.user)
   let gotImg = userObj.profileImg;
 
   return (

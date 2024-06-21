@@ -1,17 +1,12 @@
 import React ,{useState} from 'react'
 import './UserDashboard.css'
 import { Nav } from 'react-bootstrap'
-// import { useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { Outlet, NavLink } from 'react-router-dom';
 import SideBar from '../side-bar/SideBar';
-import { useContext } from 'react';
-import { LoginContext } from '../../contexts/LoginContext';
-
 
 function UserDashboard() {
-  // let { userObj } = useSelector(state => state.user)
-  let {userObj} = useContext(LoginContext)
-
+  let { userObj } = useSelector(state => state.user)
   let gotImg = userObj.profileImg;
 
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);

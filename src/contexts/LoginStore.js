@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { LoginContext } from './LoginContext';
+import { LoginContext } from './loginContext';
 function LoginStore({ children }) {
   let [userObj, setuser] = useState({});
   let [msg, setmsg] = useState(" ")
@@ -14,7 +14,7 @@ function LoginStore({ children }) {
     setmsg(" ")
     setIsSuccess("false");
   }
-  
+
   const login = (userCredentialObj) => {
     axios.post("http://localhost:4000/user-api/login", userCredentialObj)
       .then(res => {

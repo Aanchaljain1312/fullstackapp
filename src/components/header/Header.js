@@ -1,10 +1,10 @@
 import React, { useContext } from 'react'
 //import "./Header.css"
 import { Container, Navbar, Nav, NavDropdown, Button } from 'react-bootstrap'
-// import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
-// import { clearLoginStatus } from '../../slices/userSlice'
-import  {LoginContext}  from '../../contexts/LoginContext';
+import { clearLoginStatus } from '../../slices/userSlice'
+// import { LoginContext } from '../../contexts/loginContext';
 import { FaUserCircle } from "react-icons/fa";
 import Gt from '../Gt'
 import { MdGTranslate } from "react-icons/md";
@@ -13,36 +13,29 @@ import logo from '../../images/shopping.jpeg'
 function Header() {
 
   //get state from store
-  // let { userObj, isError, isLoading, isSuccess, errMsg } = useSelector(
-  //   (state) => state.user
-  // );
+  let { userObj, isError, isLoading, isSuccess, errMsg } = useSelector(
+    (state) => state.user
+  );
 
-  // // let { userObj, isLoading, isError,isSuccess, errMsg, clearLoginStatus } = useContext(LoginContext)
+  // let { userObj, isLoading, isError,isSuccess, errMsg, clearLoginStatus } = useContext(LoginContext)
 
 
-  // //get dispatch function
-  // let dispatch = useDispatch();
-
-  
-  // //logout user
-  // const userLogout = () => {
-  //   localStorage.clear();
-  //   dispatch(clearLoginStatus());
-  //   navigate("/login");
-  // }
-
-  
-  // const handleEvent = () => {
-  //   navigate("/userdashboard/profile");
-  // }
-
-  
-  const [currentuser, login, msg, ls, logout,isSuccess] = useContext(LoginContext);
+  //get dispatch function
+  let dispatch = useDispatch();
 
   //get navigate function
   let navigate = useNavigate();
 
+  const handleEvent = () => {
+    navigate("/userdashboard/profile");
+  }
 
+  //logout user
+  const userLogout = () => {
+    localStorage.clear();
+    dispatch(clearLoginStatus());
+    navigate("/login");
+  }
   return (
     <div>
       <Navbar collapseOnSelect expand="sm" bg="success" fixed="top" variant="dark" mb="5" >
@@ -91,14 +84,14 @@ function Header() {
               ) : (
                 <>
                   {/* dropdown should appear after user login */}
-                  <NavDropdown title={currentuser.username} id="collasible-nav-dropdown" >
+                  <NavDropdown title={userObj.username} id="collasible-nav-dropdown" >
                     <NavDropdown.Item >
                       Change password
                     </NavDropdown.Item>
 
                     <NavDropdown.Divider />
 
-                    <NavDropdown.Item onClick={logout}>
+                    <NavDropdown.Item onClick={userLogout}>
                       Logout
                     </NavDropdown.Item>
 

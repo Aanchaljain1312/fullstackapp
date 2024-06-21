@@ -2,15 +2,12 @@ import { React, useState, useEffect } from 'react';
 import axios from 'axios';
 import { Card,Row,Col,Button } from 'react-bootstrap';
 import { FaShoppingCart } from "react-icons/fa";
-// import { useSelector } from 'react-redux';
-import { useContext } from 'react';
-import { LoginContext } from '../../contexts/LoginContext';
+import { useSelector } from 'react-redux';
 
 function ViewProducts() {
   const [products, setProducts] = useState([]);
   
-  // let { userObj } = useSelector(state => state.user)
-  let {userObj} = useContext(LoginContext)
+  let { userObj } = useSelector(state => state.user)
 
   const getProducts = async () => {
     try {
