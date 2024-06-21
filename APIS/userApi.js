@@ -2,39 +2,14 @@
 const exp = require('express');
 const userApp = exp.Router()
 const expressAsyncHandler = require('express-async-handler')
+
 //import bcryptjs to hash password
 const bcryptjs = require('bcryptjs')
 //import json webtoken
 const jwt = require('jsonwebtoken')
 const verifyToken = require('./middlewares/verifyTokens')
 require("dotenv").config();
-
-var cloudinary = require("cloudinary").v2;
-const {CloudinaryStorage} = require("multer-storage-cloudinary")
-const multer= require("multer")
-
-//configure cloudinary
-cloudinary.config({
-    cloud_name :process.env.CLOUD_NAME,
-    api_key:process.env.API_KEY,
-    api_secret:process.env.API_SECRET,
-    secure:true
-
-})
-
-//config cloudinary storage
-const cloudinaryStorage = new CloudinaryStorage({
-    cloudinary:cloudinary,
-    params: async(req,file)=>{
-        return{
-            folder:"fullstackapp",
-            public_id:file.fieldname + "-" +Date.now(),
-        }
-    }
-})
-
-//configure multer
-var upload = multer({storage:cloudinaryStorage})
+const upload = require('./middlewares/Cloudinary');
 
 //to extract body of request object
 userApp.use(exp.json()) //for post and put requsets-->(exp.json) is called body parsinf middleware
@@ -46,7 +21,7 @@ userApp.use(exp.json()) //for post and put requsets-->(exp.json) is called body 
 
 //create route to handle '/getusers' path
 //only for admin
-userApp.get('/getusers',verifyToken,expressAsyncHandler(async(request,response)=>{
+userApp.get('/getusers',expressAsyncHandler(async(request,response)=>{
     //get user collection object
     let userCollectionObject = request.app.get("userCollectionObject");
     //get all users and pack into an array
@@ -80,7 +55,7 @@ userApp.post('/login',expressAsyncHandler(async(request,response)=>{
             let token = jwt.sign(
                 {username:userOfDB.username}, 
                 process.env.SECRET_KEY,
-                {expiresIn:10}
+                {expiresIn:60}
             )
             //send token
             response.send({message:"success", payload:token,userObj:userOfDB})

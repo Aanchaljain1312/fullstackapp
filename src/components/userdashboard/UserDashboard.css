@@ -1,4 +1,4 @@
-.active{
+/* .active{
   background-color: rgb(65, 150, 189);
   color:white;
   font-weight: bold;
@@ -14,4 +14,11 @@ a{
 
 a:hover{
   color:aliceblue;
+} */
+
+
+.profile-pic{
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
 }

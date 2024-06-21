@@ -1,4 +1,4 @@
-.active{
+/* .active{
   background-color: rgb(189, 65, 86);
   color:white;
   font-weight: bold;
@@ -18,8 +18,9 @@ a:hover{
 
 #drop-down{
   /* background-color: #4cb84c; */
-  color:#4cb84c;
-  font-weight: bold;
+  /* color:#4cb84c; */
+  /* font-weight: bold; */
   
   /* border-radius: 5px; */
-}
+/* } */
+ 

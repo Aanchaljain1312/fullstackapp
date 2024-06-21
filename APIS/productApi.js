@@ -1,5 +1,4 @@
 //create router to handle product reqs
-const express = require('express');
 const exp = require('express');
 const productApp = exp.Router()
 const expressAsyncHandler= require('express-async-handler')
@@ -85,8 +84,8 @@ productApp.post('/create-product',expressAsyncHandler(async(request,response)=>{
     response.send({message:'Product created successfully'})
 }))
 
-//update product
 
+//update product
 productApp.put('/update-product',expressAsyncHandler(async(request,response)=>{
     //get product collection object
     let productCollectionObject = request.app.get("productCollectionObject");

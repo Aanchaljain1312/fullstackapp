@@ -22,11 +22,13 @@ mClient.connect(DBurl)
 
         //create collection objects
         let userCollectionObject = dbObj.collection("usercollection")
-        let productCollectionObject = dbObj.collection("productcollection");
+        let productCollectionObject = dbObj.collection("productcollection")
+        let cartCollectionObject = dbObj.collection("cartcollection")
 
         //sharing collection objects to APIS
         app.set("userCollectionObject", userCollectionObject);
         app.set("productCollectionObject", productCollectionObject);
+        app.set("cartCollectionObject", cartCollectionObject);
 
         console.log("DB connection success")
     })
@@ -35,11 +37,12 @@ mClient.connect(DBurl)
 //import userApp and productApp
 const userApp = require('./APIS/userApi');
 const productApp = require('./APIS/productApi');
-
+const cartApp = require('./APIS/cartApi');
 
 //path middleware
 app.use('/user-api', userApp)
 app.use('/product-api', productApp)
+app.use('/cart-api', cartApp)
 
 //dealing with page refresh
 app.use('*', (request, response) => {

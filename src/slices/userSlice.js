@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-//make http post req llogin user
+//make http post req login user
 export const userLogin = createAsyncThunk('loginuser', async (userCredentialObj, thunkApi) => {
 
     let response = await axios.post('/user-api/login', userCredentialObj)
@@ -34,26 +34,47 @@ let userSlice = createSlice({
             return state;
         }
     },
-    extraReducers: {
-        //track life cycle of promise returned by create async thunk function
-        [userLogin.pending]: (state, action) => {
-            state.isLoading=true;
-        },
-        [userLogin.fulfilled]: (state,action) => {
-            state.userObj=action.payload;
-            state.isLoading=false;
-            state.isError=false;
-            state.isSuccess=true;
-            state.errMsg='';
-        },
-        [userLogin.rejected]:(state,action)=>{
-            state.isError=true;
-            state.isLoading=false;
-            state.isSuccess=false;
-            state.errMsg=action.payload.message;
-        }
-    }
-})
+//     extraReducers: {
+//         //track life cycle of promise returned by create async thunk function
+//         [userLogin.pending]: (state, action) => {
+//             state.isLoading=true;
+//         },
+//         [userLogin.fulfilled]: (state,action) => {
+//             state.userObj=action.payload;
+//             state.isLoading=false;
+//             state.isError=false;
+//             state.isSuccess=true;
+//             state.errMsg='';
+//         },
+//         [userLogin.rejected]:(state,action)=>{
+//             state.isError=true;
+//             state.isLoading=false;
+//             state.isSuccess=false;
+//             state.errMsg=action.payload.message;
+//         }
+//     }
+// })
+extraReducers: (builder) => {
+    // track life cycle of promise returned by create async thunk function
+    builder
+        .addCase(userLogin.pending, (state) => {
+            state.isLoading = true;
+        })
+        .addCase(userLogin.fulfilled, (state, action) => {
+            state.userObj = action.payload;
+            state.isLoading = false;
+            state.isError = false;
+            state.isSuccess = true;
+            state.errMsg = '';
+        })
+        .addCase(userLogin.rejected, (state, action) => {
+            state.isError = true;
+            state.isLoading = false;
+            state.isSuccess = false;
+            state.errMsg = action.payload.message;
+        });
+}
+});
 
 //export action creators
 export const {clearLoginStatus} = userSlice.actions;

@@ -1,49 +1,48 @@
-import React from 'react'
+import React from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
-import login from '../Images/login.svg'
-import { useSelector, useDispatch } from 'react-redux'
-import { userLogin } from '../slices/userSlice'
-import { useEffect } from 'react';
+import loginimg from '../images/login.svg';
+import { useContext } from 'react';
+import { LoginContext } from '../contexts/LoginContext';
 
 function Login() {
-
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  let { userObj, isError, isLoading, isSuccess, errMsg } = useSelector(state => state.user)
-  let dispatch = useDispatch();
+  const { login, msg, ls, isSuccess } = useContext(LoginContext);
+  const navigate = useNavigate();
 
-  const navigate = useNavigate()
+  const onFormSubmit = async (userCredentialObj) => {
+    try {
+      if (userCredentialObj.userType === "user") {
+        await login(userCredentialObj);
+      }
 
-  const onFormSubmit = (userCredentialObj) => {
-    //console.log(userCredentialObj)
-    if(userCredentialObj.userType==="user"){
-      dispatch(userLogin(userCredentialObj));
+      if (userCredentialObj.userType === "admin") {
+        navigate("/admin");
+      }
+    } catch (error) {
+      console.error('Error during form submission:', error);
+      // Handle error appropriately, e.g., set error state
     }
+  };
 
-    if(userCredentialObj.userType==="admin"){
-      alert("Admin development in progress...");
-    }
-  }
-
-  useEffect(() => {
+  React.useEffect(() => {
     if (isSuccess) {
       navigate("/userdashboard");
     }
-  }, [isSuccess, isError]);
+  }, [isSuccess, navigate]);
 
   return (
     <div className='container'>
-
       <p className='display-2 text-center text-primary'>Login</p>
       <img
-        src={login}
+        src={loginimg}
         width="300px"
         className='d-none d-sm-block mx-auto mt-2'
         alt="no image"
@@ -93,9 +92,9 @@ function Login() {
             Login
           </Button>
         </Form>
-        </div>
       </div>
-      )
+    </div>
+  )
 }
 
-      export default Login
+export default Login;

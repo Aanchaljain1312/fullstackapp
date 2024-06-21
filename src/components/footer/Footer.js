@@ -4,7 +4,7 @@ import './Footer.css'
 function Footer() {
   return (
     <footer className="bg-dark text-white text-center">
-      <div className="wrapper mt-3">
+      <div className="wrapper mt-3 mb-0">
         <small>
           @2024 <strong>VNR College of Engineering</strong>, All Rights Reserved
         </small>
